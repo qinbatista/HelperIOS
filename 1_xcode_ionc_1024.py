@@ -13,5 +13,5 @@ def main(_path):
 		out = im.resize((new_size, new_size), Image.ANTIALIAS)
 		out.save(file_path+'/'+file_name+"_"+str(new_size)+file_format)
 if __name__=='__main__':
-	_path = sys.argv[1]
-	main(_path)
+	# _path = sys.argv[1]
+	main(input("input your picture path:"))

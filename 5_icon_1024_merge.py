@@ -65,13 +65,11 @@ def add_num(im,mark):
 	img.save(nameList[0]+nameList[1]+"/../app_icon_"+nameList[3]+".png")
 	print("->New Icon:"+nameList[0]+nameList[1]+"/../app_icon_"+nameList[3]+".png")
 def main(_ICONLocation):
-	ListAllIcon = ListFolder(PythonLocation()+"/"+"ChannelIcon")
+	ListAllIcon = ListFolder(PythonLocation()+"/"+"IconResource")
 	for iconPlace in ListAllIcon:
 		if iconPlace.rfind(".png")!=-1 and _ICONLocation.rfind(".png")!=-1:
 			#CombinePicOpenVC(PythonLocation()+"/"+gameicon,PythonLocation()+"/"+"ChannelIcon/"+iconPlace)
-			add_num(Image.open(ModifySizeOfPicTo512(_ICONLocation)),Image.open(ModifySizeOfPicTo512(PythonLocation()+"/"+"ChannelIcon/"+iconPlace)))
+			add_num(Image.open(ModifySizeOfPicTo512(_ICONLocation)),Image.open(ModifySizeOfPicTo512(PythonLocation()+"/"+"IconResource/"+iconPlace)))
 if __name__=='__main__':
-	print("[Your Icon:"+PythonLocation()+"/"+sys.argv[1]+"]")
-	main(sys.argv[1])
-	print("Press any keys to exit...")
-	input()
+	# print("[Your Icon:"+PythonLocation()+"/"+sys.argv[1]+"]")
+	main(input("input your picture path:"))
