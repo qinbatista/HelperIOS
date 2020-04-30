@@ -37,9 +37,10 @@ def Unzip(CheckString):
 		os.mkdir(file_path+"/"+file_name)
 	else:
 		os.mkdir(file_path+"/"+file_name)
-	p = subprocess.Popen(f"unzip {CheckString} -d {file_path}/{file_name}", stdout=subprocess.PIPE, shell=True)
-	p.wait()
-	# os.system(f"unzip {CheckString} -d {file_path}/{file_name}")
+	# p = subprocess.Popen(f"unzip {CheckString} -d {file_path}/{file_name}", stdout=subprocess.PIPE, shell=True)
+	# p.wait()
+	os.system(f"unzip {CheckString} -d {file_path}/{file_name}")
+	os.system("-----------------------------------------------")
 	return f"{file_path}/{file_name}"
 
 def DecopileAPK(CheckString):
