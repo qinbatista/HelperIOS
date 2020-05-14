@@ -151,6 +151,10 @@ class APKBuildManager():
 				self.__merge_libs(self._file_path+"/"+self._file_name+"/"+folder_name, self._file_path+"/"+self._file_name+"/aar_extract/libs/"+folder_name)
 			if os.path.isdir(self._file_path+"/"+self._file_name+"/"+folder_name)==True and folder_name.rfind("aar_extract")==-1:
 				self.__merge_libs(self._file_path+"/"+self._file_name+"/"+folder_name+"/"+folder_name+".jar", self._file_path+"/"+self._file_name+"/aar_extract/libs/"+folder_name+".jar")
+				if os.path.isdir(self._file_path+"/"+self._file_name+"/"+folder_name+"/libs")==True:
+					folder_list = self.__list_folder(self._file_path+"/"+self._file_name+"/"+folder_name+"/libs")
+					for f_name in folder_list:
+						self.__merge_libs(self._file_path+"/"+self._file_name+"/"+folder_name+"/libs/"+f_name, self._file_path+"/"+self._file_name+"/aar_extract/libs/"+f_name)
 
 		#move res to new resource folder
 		if os.path.isdir(self._file_path+"/"+self._file_name+"/aar_extract/res/")==False:os.mkdir(self._file_path+"/"+self._file_name+"/aar_extract/res/")
@@ -338,6 +342,16 @@ class APKBuildManager():
 		if os.path.isfile(file_path+"/"+file_name+"/AndroidManifest.xml"):shutil.copy(file_path+"/"+file_name+"/AndroidManifest.xml", file_path+"/"+file_name+"_extract/AndroidManifest.xml")
 		#复制jar
 		if os.path.isfile(file_path+"/"+file_name+"/classes.jar"):shutil.copy(file_path+"/"+file_name+"/classes.jar", file_path+"/"+file_name+"_extract/"+file_name+".jar")
+		# #拷贝jni
+		if os.path.isdir(file_path+"/"+file_name+"/jni"):
+			shutil.copytree(file_path+"/"+file_name+"/jni", file_path+"/"+file_name+"_extract/jni")
+		# #拷贝aar里的libs
+		if os.path.isdir(file_path+"/"+file_name+"/libs"):
+			folder_list = self.__list_folder(file_path+"/"+file_name+"/libs")
+			for jar in folder_list:
+				if os.path.isdir(file_path+"/"+file_name+"_extract/libs/")==False:os.mkdir(file_path+"/"+file_name+"_extract/libs/")
+				shutil.copy(file_path+"/"+file_name+"/libs/"+jar, file_path+"/"+file_name+"_extract/libs/"+jar.replace(".jar","")+"_"+file_name+".jar")
+
 		#复制assets
 		if os.path.isdir(file_path+"/"+file_name+"/assets"):shutil.copytree(file_path+"/"+file_name+"/assets", file_path+"/"+file_name+"_extract/assets")
 		#处置res
