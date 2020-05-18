@@ -25,6 +25,7 @@ def Signature(_gamename):
 	#p = Popen(["python3", "/Users/yupengqin/MyPragram/E2WGAME/03_Appurtenance/031_双击打空包.py"], stdout=PIPE, stdin=PIPE, stderr=STDOUT)
 	os.system("keytool -genkey -alias android.keystore \
     -keyalg RSA -keystore "+_gamename+".keystore \
+	-validity 120000 \
     -dname \"CN="+_key+", OU="+_gamename+", O="+_name+", L=singmaan, S=singmaan, C=China\" \
     -storepass singmaan -keypass singmaan")
 if __name__=='__main__':
