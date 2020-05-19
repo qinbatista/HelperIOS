@@ -126,7 +126,12 @@ class APKBuildManager():
 		self._file_path = _path[:_path.rfind("/")]
 
 	def _extract_resource(self):
-		#extract files
+		if os.path.isdir(self._path)==False:
+			if os.path.exists(self._file_path+"/"+self._file_name):
+				shutil.rmtree(self._file_path+"/"+self._file_name)
+			os.mkdir(self._file_path+"/"+self._file_name)
+			shutil.move(self._path, self._file_path+"/"+self._file_name)
+		self._path = self._file_path+"/"+self._file_name
 		file_list = self.__all_files_in_folder(self._path)
 		for file_name in file_list:
 			if file_name.rfind(".aar")!=-1:
@@ -369,7 +374,7 @@ def merge_xml(_Path1,_Path2):
 	XMLop.DeleteMultiTag_SaveFirstElementPriorities()
 
 def main():
-	sam = APKBuildManager("/Users/batista/Downloads/Ad4399Demo/app/libs")
+	sam = APKBuildManager(sys.argv[1])
 	sam._extract_resource()
 
 if __name__ == '__main__':
