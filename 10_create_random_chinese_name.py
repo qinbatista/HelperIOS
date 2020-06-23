@@ -327,7 +327,7 @@ def football2(_path):
 			x_list = content.split("\t")
 			y_list.append(x_list)
 	name_list = []
-	for i in range(0,5100):
+	for i in range(0,6000):
 		int_number = random.randint(0,1)
 		if int_number==1:
 			name_list.append(y_list[random.randint(0,179)][random.randint(0,3)]+y_list[random.randint(0,179)][random.randint(0,3)]+ y_list[random.randint(0,179)][random.randint(0,3)]+"队")
@@ -336,7 +336,7 @@ def football2(_path):
 	name_list = list(set(name_list))
 	app=xw.App(visible=True,add_book=False)
 	wb=app.books.open("/Users/batista/Downloads/Clubs2017_ToTranscribe.xlsx")
-	for i in range(2,5100):
+	for i in range(2,6000):
 		ss = wb.sheets[0].range((i,3)).color
 		if ss == (0,176,240):
 			print("aaaa")
