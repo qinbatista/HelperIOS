@@ -284,8 +284,74 @@ def brick_royal(_path):
 	# with open(_path+"."+self.target, 'w', encoding='utf-8') as f:
 	# 	f.writelines(new_content)
 
+def football(_path):
+	print("Translate txt Started:"+_path)
+	x_list = []
+	y_list = []
+	with open("/Users/batista/MyProject/QinProgram/GameSupportTool/ChineseName.txt", 'r', encoding='utf-8') as f:
+		contents = f.readlines()
+		for index,content in enumerate(contents):
+			content = content.replace("\n","")
+			x_list = content.split("\t")
+			y_list.append(x_list)
+	name_list = []
+	for i in range(0,1000):
+		int_number = random.randint(0,1)
+		if int_number==1:
+			name_list.append(y_list[random.randint(0,179)][random.randint(0,3)]+y_list[random.randint(0,179)][random.randint(0,3)]+ y_list[random.randint(0,179)][random.randint(0,3)]+"队")
+		else:
+			name_list.append(y_list[random.randint(0,179)][random.randint(0,3)]+y_list[random.randint(0,179)][random.randint(0,3)]+"队")
+	name_list = list(set(name_list))
+	app=xw.App(visible=True,add_book=False)
+	wb=app.books.open("/Users/batista/Downloads/Competitions2017_ToTranscribe.xlsx")
+	for i in range(2,1000):
+		ss = wb.sheets[0].range((i,2)).color
+		if ss == (0,176,240):
+			print("aaaa")
+			sss = wb.sheets[0].range((i,2)).value = name_list[i]
+	wb.save()
+	wb.close()
+	app.quit()
+	# with open(_path+"."+self.target, 'w', encoding='utf-8') as f:
+	# 	f.writelines(new_content)
+
+
+def football2(_path):
+	print("Translate txt Started:"+_path)
+	x_list = []
+	y_list = []
+	with open("/Users/batista/MyProject/QinProgram/GameSupportTool/ChineseName.txt", 'r', encoding='utf-8') as f:
+		contents = f.readlines()
+		for index,content in enumerate(contents):
+			content = content.replace("\n","")
+			x_list = content.split("\t")
+			y_list.append(x_list)
+	name_list = []
+	for i in range(0,5100):
+		int_number = random.randint(0,1)
+		if int_number==1:
+			name_list.append(y_list[random.randint(0,179)][random.randint(0,3)]+y_list[random.randint(0,179)][random.randint(0,3)]+ y_list[random.randint(0,179)][random.randint(0,3)]+"队")
+		else:
+			name_list.append(y_list[random.randint(0,179)][random.randint(0,3)]+y_list[random.randint(0,179)][random.randint(0,3)]+"队")
+	name_list = list(set(name_list))
+	app=xw.App(visible=True,add_book=False)
+	wb=app.books.open("/Users/batista/Downloads/Clubs2017_ToTranscribe.xlsx")
+	for i in range(2,5100):
+		ss = wb.sheets[0].range((i,3)).color
+		if ss == (0,176,240):
+			print("aaaa")
+			sss = wb.sheets[0].range((i,3)).value = name_list[i]
+	wb.save()
+	wb.close()
+	app.quit()
+	# with open(_path+"."+self.target, 'w', encoding='utf-8') as f:
+	# 	f.writelines(new_content)
+
+
 def main():
-	brick_royal("./ChineseName.txt")
+	# brick_royal("./ChineseName.txt")
+	# football("/Users/batista/Downloads/Competitions2017_ToTranscribe.xlsx")
+	football2("football2")
 
 if __name__ == '__main__':
 	main()
