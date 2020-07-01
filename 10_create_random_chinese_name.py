@@ -347,11 +347,27 @@ def football2(_path):
 	# with open(_path+"."+self.target, 'w', encoding='utf-8') as f:
 	# 	f.writelines(new_content)
 
+def create_nsk2_iap():
+	string_list = []
+	app=xw.App(visible=True,add_book=False)
+	wb=app.books.open("/Users/batista/MyProject/QinProgram/GameSupportTool/NSK2IAPlist.xlsx")
+	for i in range(2, 340):
+		pid = wb.sheets[0].range((i,1)).value
+		if pid ==None:
+			continue
+		price = (wb.sheets[0].range((i,2)).value+0.01)*7
+		des = wb.sheets[0].range((i,3)).value
+		print("{\""+pid+"\",\""+des+"\",\""+str(price)+"\"}")
+		string_list.append("{\""+pid+"\",\""+des+"\",\""+str(price)+"\"},\r")
+	with open("/Users/batista/MyProject/QinProgram/GameSupportTool/NSK2IAPlist.txt", 'w', encoding='utf-8') as f:
+		f.writelines(string_list)
 
 def main():
 	# brick_royal("./ChineseName.txt")
 	# football("/Users/batista/Downloads/Competitions2017_ToTranscribe.xlsx")
-	football2("football2")
+	# football2("football2")
+	create_nsk2_iap()
+	
 
 if __name__ == '__main__':
 	main()
