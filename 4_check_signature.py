@@ -1,10 +1,10 @@
-from PIL import Image
 import os
 import sys
 import re
 import shutil
 import xml.dom.minidom
 import subprocess
+
 def	ListFolder(path):
 	List = []
 	for i in os.listdir(path):
