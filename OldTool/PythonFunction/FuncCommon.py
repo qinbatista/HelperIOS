@@ -489,7 +489,6 @@ def DeleteSignature(_APKLocation):
 	# foldername=APKname[:PointCount]
 	APKname[:PointCount]
 	your_delet_file="META-INF"
-	
 	old_zipfile=_APKLocation #旧文件
 	new_zipfile=_APKLocation+"temp" #新文件
 	zin = zipfile.ZipFile (old_zipfile, 'r') #读取对象
