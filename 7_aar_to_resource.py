@@ -148,6 +148,13 @@ class APKBuildManager():
 				if os.path.isdir(self._file_path+"/"+self._file_name+"/"+folder_name+"/assets")==True:
 					self.__merge_assets(self._file_path+"/"+self._file_name+"/"+folder_name+"/assets", self._file_path+"/"+self._file_name+"/aar_extract/assets")
 
+		#move jniLibs to new resource folder
+		folder_list = self.__list_folder(self._path)
+		for folder_name in folder_list:
+			if os.path.isdir(self._file_path+"/"+self._file_name+"/"+folder_name)==True and folder_name.rfind("aar_extract")==-1:
+				if os.path.isdir(self._file_path+"/"+self._file_name+"/"+folder_name+"/jni")==True:
+					self.__merge_jni(self._file_path+"/"+self._file_name+"/"+folder_name+"/jni", self._file_path+"/"+self._file_name+"/aar_extract/jniLibs")
+
 		#move jar to new resource folder
 		if os.path.isdir(self._file_path+"/"+self._file_name+"/aar_extract/libs/")==False:os.mkdir(self._file_path+"/"+self._file_name+"/aar_extract/libs/")
 		folder_list = self.__list_folder(self._path)
@@ -183,6 +190,11 @@ class APKBuildManager():
 			if os.path.isdir(self._file_path+"/"+self._file_name+"/"+folder_name)==True and folder_name.rfind("aar_extract")==-1:
 				shutil.rmtree(self._file_path+"/"+self._file_name+"/"+folder_name)
 	def __merge_assets(self, _source, _des):
+		self.__copyFileCounts = 0
+		if os.path.isdir(_des)==False:os.mkdir(_des)
+		self._copy_files_overwrite(_source,_des)
+
+	def __merge_jni(self, _source, _des):
 		self.__copyFileCounts = 0
 		if os.path.isdir(_des)==False:os.mkdir(_des)
 		self._copy_files_overwrite(_source,_des)
@@ -361,6 +373,8 @@ class APKBuildManager():
 		if os.path.isdir(file_path+"/"+file_name+"/assets"):shutil.copytree(file_path+"/"+file_name+"/assets", file_path+"/"+file_name+"_extract/assets")
 		#处置res
 		if os.path.isdir(file_path+"/"+file_name+"/res"):shutil.copytree(file_path+"/"+file_name+"/res", file_path+"/"+file_name+"_extract/res")
+		#处理jni
+		# if os.path.isdir(file_path+"/"+file_name+"/jni"):shutil.copytree(file_path+"/"+file_name+"/jni", file_path+"/"+file_name+"_extract/jniLibs")
 		#删除解压文件夹
 		if os.path.exists(file_path+"/"+file_name) and file_name!='':shutil.rmtree(file_path+"/"+file_name)
 		#移动到解压文件夹位置
@@ -375,6 +389,7 @@ def merge_xml(_Path1,_Path2):
 
 def main():
 	sam = APKBuildManager(sys.argv[1])
+	# sam = APKBuildManager("/Users/batista/Desktop/tt_open_ad_sdk3103.aar")
 	sam._extract_resource()
 
 if __name__ == '__main__':
