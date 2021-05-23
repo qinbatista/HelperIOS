@@ -10,6 +10,7 @@ class VideoOperator:
 		self.__ID_merge_right_left_to_video = 5
 		self.__ID_strink_1st_second = 6
 		self.__ID_zip_video = 7
+		self.__ID_convert_to_mp4 = 8
 		self.__file = _file
 		self.__option = 0
 		self.__file_path = ""
@@ -45,10 +46,13 @@ class VideoOperator:
 		self.__cache_list.append(f"{self.__file_name_without_extension}_mono.aac")
 
 	def __strink_1st_second(self):
-		os.system(f"ffmpeg -i {self.__file} -ss  1 -map 0  -c copy {self.__file_name_without_extension}_strinked."+self.__file_extension_name)  
+		os.system(f"ffmpeg -i {self.__file} -ss  0.1 -map 0  -c copy {self.__file_name_without_extension}_strinked."+self.__file_extension_name)  
 
 	def __zip_video(self):
-		os.system(f"ffmpeg -i {self.__file} -vcodec h264 -acodec mp2 {self.__file_name_without_extension}_ziped.{self.__file_extension_name}")  
+		os.system(f"ffmpeg -i {self.__file} -max_muxing_queue_size 9999 -vcodec h264 -acodec mp2 {self.__file_name_without_extension}_ziped.{self.__file_extension_name}")  
+
+	def __convert_to_mp4(self):
+		os.system(f"ffmpeg -i {self.__file}  -max_muxing_queue_size 9999 {self.__file_name_without_extension}.mp4")  
 
 	def _operator(self, option):
 		if option == self.__ID_extract_aac:
@@ -65,6 +69,8 @@ class VideoOperator:
 			self.__strink_1st_second()
 		elif option == self.__ID_zip_video:
 			self.__zip_video()
+		elif option == self.__ID_convert_to_mp4:
+			self.__convert_to_mp4()
 
 	def __merge_mono_aac_to_video(self):
 		if os.path.exists(f"{self.__file_name_without_extension}_mono.aac")==False:
